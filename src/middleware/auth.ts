@@ -1,0 +1,27 @@
+import { RequestHandler } from "express";
+import jwt from 'jsonwebtoken';
+import User from '../models/user';
+import DataStoredInToken from '../interfaces/dataStoredInToken';
+
+const auth : RequestHandler = async (req, res, next) => {
+    try{
+        const header = req.header('Authorization')
+        if(!header){throw new Error}
+        
+        const token = header.replace('Bearer ', '');
+        
+        
+        const decoded = jwt.verify(token, 'expressapp') as DataStoredInToken;;
+        const user = await User.findByPk(decoded.id);
+   
+        if(!user){
+            throw new Error
+        }
+
+        next()
+    } catch (e) {
+        res.status(401).send({error: 'Please autentificate'})
+    }
+}
+
+export default auth
