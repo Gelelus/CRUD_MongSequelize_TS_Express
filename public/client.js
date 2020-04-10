@@ -67,6 +67,37 @@ const CreateUser = async (userName, userAge, userPassword) => {
     }
 }
 
+//Добовление питомца 
+const addPet = async (petName, userId) => {
+    let data = {
+        name: petName,
+        id: userId
+    }
+    let response = await fetch('/users/pet', {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('token'),
+        },
+        body: JSON.stringify(data)
+    })
+    let result = await response.json();
+    console.log(result)    
+}
+
+const getPets = async () => {
+
+    let response = await fetch('/users/pet/'+ localStorage.getItem('id'), {
+        headers: {
+            'Content-Type': 'application/json;',
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        }
+    })
+    let result = await response.json();
+    console.log(result)    
+}
+
 // Изменение пользователя
 const EditUser = async (userId, userName, userAge) => {
     let data = {
@@ -142,6 +173,7 @@ const LoginUser = async (userName, userPassword) => {
         document.getElementById('userman').innerText = user.user.name;
         localStorage.setItem('token', user.token)
         localStorage.setItem('name', user.user.name)
+        localStorage.setItem('id', user.user.id)
         document.forms["authForm"].reset();
         document.forms["authForm"].hidden = 'true'
         document.getElementById('logoutDiv').hidden = false
@@ -165,6 +197,7 @@ const LogoutUser = async () => {
     console.log(user)
     localStorage.removeItem('token')
     localStorage.removeItem('name')
+    localStorage.removeItem('id')
     document.forms["authForm"].hidden = false
     document.getElementById('logoutDiv').hidden = true
 }
