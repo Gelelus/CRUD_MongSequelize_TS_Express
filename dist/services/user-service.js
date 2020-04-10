@@ -143,7 +143,9 @@ var addPet = function (data) {
                     if (!user) {
                         throw new Error("User doesn't exist");
                     }
-                    pet = user.createPet({ name: data.name });
+                    return [4, user.createPet({ name: data.name })];
+                case 2:
+                    pet = _a.sent();
                     return [2, { user: user, pet: pet }];
             }
         });

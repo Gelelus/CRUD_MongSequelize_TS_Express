@@ -72,7 +72,7 @@ const addPet = async function (data : {
 
     const user = await User.findByPk(data.id);
     if(!user){throw new Error("User doesn't exist")}
-    const pet = user.createPet({name:data.name})
+    const pet = await user.createPet({name:data.name})
     
     return {user,pet}
 }
