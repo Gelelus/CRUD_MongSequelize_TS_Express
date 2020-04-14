@@ -80,6 +80,7 @@ const addPet = async function (data : {
 }
 
 const addAvatar = async function (file: File, user: UserModel) {
+    
     user.avatarImg = "/public/img/avatars/" + file.filename;
     user.save();
     return user

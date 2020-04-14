@@ -27,7 +27,7 @@ const User = <UserModelStatic>sequelize.define("user", {
     },
     avatarImg: {
       type: Sequelize.STRING,
-      allowNull: false
+      defaultValue: '/public/img/avatars/index.jpg'
     }
 
   });
@@ -58,6 +58,6 @@ const User = <UserModelStatic>sequelize.define("user", {
 
     return user
 }
-  //sequelize.sync()
+  sequelize.sync()
   
 export default User

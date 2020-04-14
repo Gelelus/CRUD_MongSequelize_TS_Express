@@ -151,6 +151,15 @@ var addPet = function (data) {
         });
     });
 };
+var addAvatar = function (file, user) {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            user.avatarImg = "/public/img/avatars/" + file.filename;
+            user.save();
+            return [2, user];
+        });
+    });
+};
 exports.default = {
     add: add,
     get: get,
@@ -159,5 +168,6 @@ exports.default = {
     getAll: getAll,
     login: login,
     getPets: getPets,
-    addPet: addPet
+    addPet: addPet,
+    addAvatar: addAvatar
 };

@@ -62,6 +62,10 @@ var User = database_1.default.define("user", {
     password: {
         type: sequelize_1.default.STRING,
         allowNull: false
+    },
+    avatarImg: {
+        type: sequelize_1.default.STRING,
+        defaultValue: '/public/img/avatars/index.jpg'
     }
 });
 User.hasMany(pet_1.default, { onDelete: "cascade" });
@@ -95,4 +99,5 @@ User.findByCredentials = function (login, password) { return __awaiter(void 0, v
         }
     });
 }); };
+database_1.default.sync();
 exports.default = User;
