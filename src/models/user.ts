@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 import sequelize from '../config/database';
 
 import Pet from './pet'
-import {UserModelStatic} from '../interfaces/UserModel'
+import {UserModelStatic, UserModel} from '../interfaces/UserModel'
 
 const User = <UserModelStatic>sequelize.define("user", {
     id: {
@@ -24,14 +24,19 @@ const User = <UserModelStatic>sequelize.define("user", {
     password: {
       type: Sequelize.STRING,
       allowNull: false
+    },
+    avatarImg: {
+      type: Sequelize.STRING,
+      allowNull: false
     }
+
   });
 
   User.hasMany(Pet, { onDelete: "cascade" }); // создание связи один ко многим
   
   User.prototype.generateAuthToken = async function () {
 
-    const user = this
+    const user = this as UserModel;
     const token = jwt.sign({id: user.id.toString() }, 'expressapp');
     return token
 

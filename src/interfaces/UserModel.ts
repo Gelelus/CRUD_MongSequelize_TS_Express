@@ -7,6 +7,7 @@ export interface UserModel extends Model {
     age: string;
     name: string;
     password: string;
+    avatarImg: string;
     generateAuthToken(): Promise<string>;
     getPets: HasManyGetAssociationsMixin<PetModel>; 
     addPet: HasManyAddAssociationMixin<PetModel, number>;

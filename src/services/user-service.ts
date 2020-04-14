@@ -1,6 +1,8 @@
 import User from "../models/user";
 import bcrypt from 'bcryptjs';
 
+import { File } from "../interfaces/MulterFileFilter";
+import { UserModel } from '../interfaces/UserModel';
 
 const add = async function (data: {
     password: string;
@@ -51,7 +53,7 @@ const login = async function (data: {
     const user = await User.findByCredentials(data.name, data.password); //статик метод из model проверка хэша и логина
    
     const token = await user.generateAuthToken();  // сздание токена 
-
+    
     return {user, token}
   
 }
@@ -77,6 +79,13 @@ const addPet = async function (data : {
     return {user,pet}
 }
 
+const addAvatar = async function (file: File, user: UserModel) {
+    user.avatarImg = "/public/img/avatars/" + file.filename;
+    user.save();
+    return user
+};
+
+
 
 
 export default {
@@ -87,5 +96,6 @@ export default {
     getAll,
     login,
     getPets,
-    addPet
+    addPet,
+    addAvatar
 }
